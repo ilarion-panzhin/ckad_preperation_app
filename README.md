@@ -1,0 +1,1 @@
+# ckad_preperation_app
