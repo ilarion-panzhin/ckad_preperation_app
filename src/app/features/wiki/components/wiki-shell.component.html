@@ -1,7 +1,7 @@
 <div class="layout">
   <aside class="sidebar">
     <h1>CKAD Wiki</h1>
-    <input type="search" placeholder="Search topics, tags, summary" (input)="onSearch($any($event.target).value)">
+    <input type="search" placeholder="Search topics" (input)="onSearch($any($event.target).value)">
 
     <ng-container *ngIf="query(); else grouped">
       <button *ngFor="let topic of filteredTopics()" (click)="jumpTo(topic)">{{ topic.title }}</button>
@@ -32,8 +32,6 @@
 
     <section *ngIf="currentTab() === 'overview'">
       <p>{{ topic.summary }}</p>
-      <h3>Learning objectives</h3>
-      <ul><li *ngFor="let objective of topic.objectives">{{ objective }}</li></ul>
       <h3>Prerequisites</h3>
       <ul><li *ngFor="let pre of topic.prerequisites">{{ pre }}</li></ul>
     </section>
@@ -71,12 +69,5 @@
   <aside class="right" *ngIf="currentTopic() as topic">
     <h3>Related topics</h3>
     <a *ngFor="let id of topic.related" [routerLink]="['/topic', id, 'overview']">{{ relatedTopic(id)?.title || id }}</a>
-
-    <h3 class="plan-title">Timeline (Mar–Jun 2026)</h3>
-    <article class="phase" *ngFor="let phase of phases">
-      <h4>{{ phase.name }}</h4>
-      <p>{{ phase.dateRange }}</p>
-      <p><strong>Goal:</strong> {{ phase.goal }}</p>
-    </article>
   </aside>
 </div>

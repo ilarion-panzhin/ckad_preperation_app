@@ -2,8 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
-import { CKAD_STUDY_PHASES } from '../data/study-plan.data';
-import { StudyPhase, Topic, TopicTab } from '../models/wiki.models';
+import { Topic, TopicTab } from '../models/wiki.models';
 import { WikiDataService } from '../wiki-data.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class WikiShellComponent {
   readonly query = signal('');
   readonly topicId = signal('kubectl-essentials');
   readonly currentTab = signal<TopicTab>('overview');
-  readonly phases: StudyPhase[] = CKAD_STUDY_PHASES;
 
   readonly byDomain = this.data.topicsByDomain();
   readonly filteredTopics = computed(() => this.data.search(this.query()));
@@ -55,7 +53,7 @@ export class WikiShellComponent {
   }
 
   asLinks(text: string): string {
-    return text.replace(/\[\[([a-z0-9-#]+)\]\]/gi, (_all, ref: string) => {
+    return text.replace(/\[\[([a-z0-9-#]+)\]\]/gi, (all, ref: string) => {
       const [id, anchor] = ref.split('#');
       return `<a href="/topic/${id}/overview${anchor ? `#${anchor}` : ''}">${id}</a>`;
     });
