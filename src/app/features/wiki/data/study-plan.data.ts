@@ -2,69 +2,69 @@ import { StudyPhase } from '../models/wiki.models';
 
 export const CKAD_STUDY_PHASES: StudyPhase[] = [
   {
-    name: 'Фаза 1: База и уверенность',
-    dateRange: '2 марта – 12 апреля 2026 (6 недель)',
-    goal: 'Закрыть все темы CKAD на уровне «могу сделать руками без подсказок».',
+    name: 'Phase 1: Foundation and Confidence',
+    dateRange: 'March 2 – April 12, 2026 (6 weeks)',
+    goal: 'Cover all CKAD topics to the level of “I can do it hands-on without hints”.',
     weeklyRhythm: [
-      '4 будних дня по 30–45 минут',
-      '1 сессия в выходные: 2 часа',
-      'Итого: ~4–5 часов в неделю'
+      '4 weekdays, 30–45 minutes each',
+      '1 weekend session: 2 hours',
+      'Total: ~4–5 hours per week'
     ],
     focus: [
       'kubectl create + dry-run yaml',
-      'быстрые правки YAML (labels, env, resources, probes)',
+      'fast YAML edits (labels, env, resources, probes)',
       'Deployment / rollout / rollback / strategy',
-      'ConfigMap, Secret, Service, Ingress (база)',
-      'Jobs, CronJobs, volumes (база), RBAC (база)',
+      'ConfigMap, Secret, Service, Ingress (basics)',
+      'Jobs, CronJobs, volumes (basics), RBAC (basics)',
       'Troubleshooting: describe, logs, events'
     ]
   },
   {
-    name: 'Фаза 2: Скорость и экзаменационный темп',
-    dateRange: '14 апреля – 19 мая 2026 (5 недель)',
-    goal: 'Решать задачи быстро и без залипания, сформировать мышечную память.',
+    name: 'Phase 2: Speed and Exam Pace',
+    dateRange: 'April 14 – May 19, 2026 (5 weeks)',
+    goal: 'Solve tasks quickly, avoid getting stuck, and build muscle memory.',
     weeklyRhythm: [
-      'Режим тот же: 4–5 часов в неделю',
-      'Каждая тренировка строго с таймером',
-      'Раз в 2 недели: мини мок 60 минут на 8–10 задач'
+      'Same rhythm: 4–5 hours per week',
+      'Every training session is timed',
+      'Every 2 weeks: mini mock, 60 minutes, 8–10 tasks'
     ],
     focus: [
-      'Простые задачи: 6–10 минут',
-      'Средние задачи: 10–15 минут',
-      'Сокращение времени на YAML и валидацию'
+      'Simple tasks: 6–10 minutes',
+      'Medium tasks: 10–15 minutes',
+      'Reduce YAML authoring and validation time'
     ],
     rules: [
-      'Если завис >5 минут — отмечаешь и идешь дальше.',
-      'Не добиваешь одну задачу 20 минут героически.'
+      'If you are stuck for >5 minutes, mark it and move on.',
+      'Do not spend 20 minutes heroically grinding one task.'
     ]
   },
   {
-    name: 'Фаза 3: Отпуск без вины',
-    dateRange: '20 мая – 30 мая 2026',
-    goal: 'Полный отдых без потери мотивации перед финальным рывком.',
+    name: 'Phase 3: Guilt-Free Break',
+    dateRange: 'May 20 – May 30, 2026',
+    goal: 'Take a full rest period before the final push.',
     weeklyRhythm: [
-      'Ноль обязательной учебы',
-      'Опционально: 10 минут «шпаргалки команд» с телефона'
+      'No mandatory study',
+      'Optional: 10-minute command cheat-sheet review on phone'
     ],
-    focus: ['Восстановление перед финальной фазой']
+    focus: ['Recovery before the final phase']
   },
   {
-    name: 'Фаза 4: Финальная шлифовка',
-    dateRange: '31 мая – дата экзамена в июне 2026',
-    goal: '2 полноценных мока по 2 часа + закрытие слабых мест.',
+    name: 'Phase 4: Final Polish',
+    dateRange: 'May 31 – exam date in June 2026',
+    goal: 'Complete 2 full 2-hour mocks and close weak areas.',
     weeklyRhythm: [
-      'Первая неделя июня: 1 мок 2 часа',
-      'Вторая неделя июня: 1 мок 2 часа',
-      'Между моками: сессии 30–45 минут на слабые темы'
+      'First week of June: 1 mock (2 hours)',
+      'Second week of June: 1 mock (2 hours)',
+      'Between mocks: 30–45 minute weak-topic sessions'
     ],
     focus: [
-      'Финальная скорость YAML',
-      'Повтор troubleshooting и сетевых задач',
-      'Легкое повторение последние 3–4 дня'
+      'Final YAML speed',
+      'Repeat troubleshooting and networking tasks',
+      'Light review only in the final 3–4 days'
     ],
     rules: [
-      'Комфортный слот сдачи: середина июня (13–20 июня).',
-      'Перед записью проверить критерий готовности на скорость 6–10 минут.'
+      'Most comfortable exam slot: mid-June (June 13–20).',
+      'Before booking, confirm readiness at 6–10 minute task pace.'
     ]
   }
 ];

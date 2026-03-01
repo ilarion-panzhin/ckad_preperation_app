@@ -3,7 +3,7 @@ import { Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { CKAD_STUDY_PHASES } from '../data/study-plan.data';
-import { StudyPhase, Topic, TopicTab } from '../models/wiki.models';
+import { CkadObjectiveDomain, MockTask, StudyPhase, Topic, TopicTab } from '../models/wiki.models';
 import { WikiDataService } from '../wiki-data.service';
 
 @Component({
@@ -19,10 +19,33 @@ export class WikiShellComponent {
   readonly topicId = signal('kubectl-essentials');
   readonly currentTab = signal<TopicTab>('overview');
   readonly phases: StudyPhase[] = CKAD_STUDY_PHASES;
+  readonly objectiveDomains: CkadObjectiveDomain[] = this.data.getObjectiveDomains();
 
   readonly byDomain = this.data.topicsByDomain();
   readonly filteredTopics = computed(() => this.data.search(this.query()));
   readonly currentTopic = computed(() => this.data.getTopic(this.topicId()));
+  readonly recommendedTasks = computed<MockTask[]>(() => {
+    const topic = this.currentTopic();
+    if (!topic) {
+      return [];
+    }
+    return this.data.getMockTasksForTopic(topic, 4);
+  });
+
+  readonly tutorReview = {
+    overallScore: '7.5 / 10',
+    readinessLevel: 'Good baseline, not yet exam-safe under pressure',
+    strengths: [
+      'Broad topic coverage across all major CKAD domains.',
+      'Clear hands-on orientation with command snippets and labs.',
+      'Helpful timeline discipline for exam pacing.'
+    ],
+    gaps: [
+      'Need more timed, scenario-based tasks directly linked to each topic.',
+      'Need explicit objective-weight awareness to prioritize high-impact domains.',
+      'Need stronger retrieval workflow for mock repetition and weak-spot tracking.'
+    ]
+  };
 
   constructor(
     private readonly data: WikiDataService,

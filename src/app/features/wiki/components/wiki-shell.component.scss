@@ -1,6 +1,6 @@
 .layout {
   display: grid;
-  grid-template-columns: 300px 1fr 280px;
+  grid-template-columns: 300px 1fr 320px;
   min-height: 100vh;
 }
 
@@ -81,21 +81,39 @@
   color: var(--primary);
 }
 
+.review-card,
+.task-card,
 .phase {
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 0.65rem;
+  padding: 0.75rem;
   background: #0b1220;
+  margin-bottom: 0.7rem;
 }
 
+.task-card h4,
 .phase h4 {
   margin: 0;
 }
 
+.task-card p,
 .phase p {
   margin: 0.3rem 0;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--muted);
+}
+
+.phase ul,
+.review-card ul {
+  margin: 0.35rem 0;
+  padding-left: 1.1rem;
+}
+
+.phase li,
+.review-card li {
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+  font-size: 0.86rem;
 }
 
 .plan-title {

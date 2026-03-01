@@ -40,3 +40,19 @@ export interface StudyPhase {
   focus: string[];
   rules?: string[];
 }
+
+export interface CkadObjectiveDomain {
+  name: string;
+  weight: string;
+  targetScore: 'Strong' | 'Very strong';
+  keySkills: string[];
+}
+
+export interface MockTask {
+  id: string;
+  title: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  timeBudgetMinutes: number;
+  tags: string[];
+  prompt: string;
+}
