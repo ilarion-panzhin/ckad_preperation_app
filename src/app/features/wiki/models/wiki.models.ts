@@ -23,10 +23,20 @@ export interface Topic {
   difficulty: 1 | 2 | 3;
   prerequisites: string[];
   summary: string;
+  objectives: string[];
   theory: string[];
   commands: CommandSnippet[];
   labs: Lab[];
   diagram: string;
   pitfalls: string[];
   related: string[];
+}
+
+export interface StudyPhase {
+  name: string;
+  dateRange: string;
+  goal: string;
+  weeklyRhythm: string[];
+  focus: string[];
+  rules?: string[];
 }
