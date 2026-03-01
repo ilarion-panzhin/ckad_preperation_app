@@ -1,0 +1,107 @@
+<div class="layout">
+  <aside class="sidebar">
+    <h1>CKAD Wiki</h1>
+    <input type="search" placeholder="Search topics, tags, summary" (input)="onSearch($any($event.target).value)">
+
+    <ng-container *ngIf="query(); else grouped">
+      <button *ngFor="let topic of filteredTopics()" (click)="jumpTo(topic)">{{ topic.title }}</button>
+    </ng-container>
+
+    <ng-template #grouped>
+      <section *ngFor="let group of byDomain | keyvalue">
+        <h2>{{ group.key }}</h2>
+        <button *ngFor="let topic of group.value" (click)="jumpTo(topic)" [class.active]="topic.id === topicId()">
+          {{ topic.title }}
+        </button>
+      </section>
+    </ng-template>
+  </aside>
+
+  <main class="content" *ngIf="currentTopic() as topic">
+    <header>
+      <h2>{{ topic.title }}</h2>
+      <div class="meta">
+        <span *ngFor="let tag of topic.tags">#{{ tag }}</span>
+        <span>difficulty {{ topic.difficulty }}/3</span>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <a *ngFor="let tab of tabs" [routerLink]="['/topic', topic.id, tab]" [class.active]="tab === currentTab()">{{ tab }}</a>
+    </nav>
+
+    <section *ngIf="currentTab() === 'overview'">
+      <p>{{ topic.summary }}</p>
+      <h3>Tutor review of this wiki build</h3>
+      <div class="review-card">
+        <p><strong>Readiness:</strong> {{ tutorReview.overallScore }} — {{ tutorReview.readinessLevel }}</p>
+        <p><strong>Strengths</strong></p>
+        <ul><li *ngFor="let strength of tutorReview.strengths">{{ strength }}</li></ul>
+        <p><strong>Gaps to close before CKAD</strong></p>
+        <ul><li *ngFor="let gap of tutorReview.gaps">{{ gap }}</li></ul>
+      </div>
+
+      <h3>Learning objectives</h3>
+      <ul><li *ngFor="let objective of topic.objectives">{{ objective }}</li></ul>
+
+      <h3>Recommended timed drills for this topic</h3>
+      <article class="task-card" *ngFor="let task of recommendedTasks()">
+        <h4>{{ task.title }} <small>({{ task.timeBudgetMinutes }} min, {{ task.difficulty }})</small></h4>
+        <p>{{ task.prompt }}</p>
+      </article>
+
+      <h3>Prerequisites</h3>
+      <ul><li *ngFor="let pre of topic.prerequisites">{{ pre }}</li></ul>
+    </section>
+
+    <section *ngIf="currentTab() === 'theory'">
+      <ul><li *ngFor="let item of topic.theory">{{ item }}</li></ul>
+    </section>
+
+    <section *ngIf="currentTab() === 'commands'">
+      <article *ngFor="let cmd of topic.commands" [id]="cmd.id">
+        <strong>{{ cmd.explanation }}</strong>
+        <pre>{{ cmd.cmd }}</pre>
+      </article>
+    </section>
+
+    <section *ngIf="currentTab() === 'labs'">
+      <article *ngFor="let lab of topic.labs">
+        <h3>{{ lab.goal }} <small>({{ lab.timeTarget }})</small></h3>
+        <ol><li *ngFor="let step of lab.steps"><code>{{ step }}</code></li></ol>
+        <p><strong>Verify:</strong> {{ lab.verification }}</p>
+        <p><strong>Cleanup:</strong> <code>{{ lab.cleanup }}</code></p>
+      </article>
+    </section>
+
+    <section *ngIf="currentTab() === 'diagrams'">
+      <p>Mermaid schematic source:</p>
+      <pre>{{ topic.diagram }}</pre>
+    </section>
+
+    <section *ngIf="currentTab() === 'pitfalls'">
+      <ul><li *ngFor="let pitfall of topic.pitfalls" [innerHTML]="asLinks(pitfall)"></li></ul>
+    </section>
+  </main>
+
+  <aside class="right" *ngIf="currentTopic() as topic">
+    <h3>Related topics</h3>
+    <a *ngFor="let id of topic.related" [routerLink]="['/topic', id, 'overview']">{{ relatedTopic(id)?.title || id }}</a>
+
+    <h3 class="plan-title">CKAD objective map</h3>
+    <article class="phase" *ngFor="let objective of objectiveDomains">
+      <h4>{{ objective.name }} <small>{{ objective.weight }}</small></h4>
+      <p><strong>Target:</strong> {{ objective.targetScore }}</p>
+      <ul>
+        <li *ngFor="let skill of objective.keySkills">{{ skill }}</li>
+      </ul>
+    </article>
+
+    <h3 class="plan-title">Timeline (Mar–Jun 2026)</h3>
+    <article class="phase" *ngFor="let phase of phases">
+      <h4>{{ phase.name }}</h4>
+      <p>{{ phase.dateRange }}</p>
+      <p><strong>Goal:</strong> {{ phase.goal }}</p>
+    </article>
+  </aside>
+</div>
